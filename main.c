@@ -25,9 +25,9 @@ int main() {
   // 4. 현재 상태 (이수한 학점)
   int myCommonCredit = 0;
   int myCoreCredit = 0;
-  int mtBasicCredit = 0;
+  int myBasicCredit = 0;
   int myGeneralCredit = 0;
-  int mtMajorCredit = 0;
+  int myMajorCredit = 0;
 
   // 5. 계산 결과
   int takenTotalCredit = 0; // 총 이수 학점
@@ -47,7 +47,7 @@ int main() {
   scanf(" %c %d", &studentInitial, &studentID);
 
   printf("현재 평균 학점(GPA)을 입력하세요. (ex. 3.5) \n >> ");
-  scanf("%f", %GPA);
+  scanf("%f", &GPA);
 
   printf("지금까지 이수한 영역별 학점을 입력하세요. \n");
   printf("전공 학점: ");
