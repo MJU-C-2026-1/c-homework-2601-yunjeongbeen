@@ -8,7 +8,8 @@
 
 // 함수 분리 -> 가독성, 유지보수성 향상 (예정)
 
-int main() {
+int main() 
+{
   // 1. 사용자 정보
   char studentInitial = ' ';
   int studentID = 0;
@@ -63,8 +64,8 @@ int main() {
     printf("메뉴 선택: ");
     scanf("%d", &choice);
 
-    switch(choice) {
-
+    switch(choice) 
+    {
       case 1:
       printf("\n [학생 정보 입력]\n");
 
@@ -91,162 +92,160 @@ int main() {
       isInfoEntered = 1;
       printf("입력 완료\n");
       break;
-    }
     
-    case 2:
-    {
-      int numSubjects;
-      int tempCredit, totalTempCredit = 0;
-      float tempGrade = 0.1f, totalTempPoints = 0.0f;
-      char gradeLetter, gradeModifier;
-
-      printf("\n[평균 학점 계산]\n");
-
-      printf("과목 수 입력: ");
-      scanf("%d", &numberSubjects);
-
-      // 배열(예정)
-
-      for(i = 1; i <= numSubjects; i++)
+    
+      case 2:
       {
-        printf("%d번째 과목 (학점, 등급): ", i);
-        scanf("%d %c%c", &tempCredit, &gradeLetter, 1, &gradeModifier, 1);
+        int numSubjects;
+        int tempCredit, totalTempCredit = 0;
+        float tempGrade = 0.1f, totalTempPoints = 0.0f;
+        char gradeLetter, gradeModifier;
 
-        // 성적 계산 로직 함수로 분리
+        printf("\n[평균 학점 계산]\n");
 
-        switch(gradeLetter) 
+        printf("과목 수 입력: ");
+        scanf("%d", &numSubjects);
+
+        // 배열(예정)
+
+        for(i = 1; i <= numSubjects; i++)
         {
-          case 'A':
-            if (gradeModifier == '+')
-            {
-              tempGrade = 4.5f;
-            }
-            else
-            {
-              tempGrade =4.0f;
-            }
-            break;
+          printf("%d번째 과목 (학점, 등급): ", i);
+          scanf("%d %c%c", &tempCredit, &gradeLetter, &gradeModifier);
 
-          case 'B':
-            if (gradeModifier == '+')
-            {
-              tempGrade = 3.5f;
-            }
-            else
-            {
-              tempGrade =3.0f;
-            }
-            break;
+          // 성적 계산 로직 함수로 분리
+
+          switch(gradeLetter) 
+          {
+            case 'A':
+              if (gradeModifier == '+')
+              {
+                tempGrade = 4.5f;
+              }
+              else
+              {
+                tempGrade =4.0f;
+              }
+              break;
+
+            case 'B':
+              if (gradeModifier == '+')
+              {
+                tempGrade = 3.5f;
+              }
+              else
+              {
+                tempGrade =3.0f;
+              }
+              break;
           
-          case 'C':
-            if (gradeModifier == '+')
-            {
-              tempGrade = 2.5f;
-            }
-            else
-            {
-              tempGrade =2.0f;
-            }
-            break;
+            case 'C':
+              if (gradeModifier == '+')
+              {
+                tempGrade = 2.5f;
+              }
+              else
+              {
+                tempGrade =2.0f;
+              }
+              break;
           
-          case 'D':
-            if (gradeModifier == '+')
-            {
-              tempGrade = 1.5f;
-            }
-            else
-            {
-              tempGrade =1.0f;
-            }
-            break;
+            case 'D':
+              if (gradeModifier == '+')
+              {
+                tempGrade = 1.5f;
+              }
+              else
+              {
+                tempGrade =1.0f;
+              }
+              break;
           
-          case 'F':
-            tempGrade = 0.0f;
-            break;
+            case 'F':
+              tempGrade = 0.0f;
+              break;
           
-          default:
-            printf("잘못된 등급 -> 'F'처리 \n");
-            tempGrade = 0.0f;
-            break;
+            default:
+              printf("잘못된 등급 -> 'F'처리 \n");
+              tempGrade = 0.0f;
+              break;
+          }
         }
+          totalTempCredit += tempCredit;
+          totalTempPoints += tempCredit * tempGrade;
 
-        totalTempCredit += tempCredit;
-        totalTempPoints += tempCredit * tempGrade;
-      }
-
-      if (totalTempCredit > 0)
-      {
-        GPA = totalTempPoints / totalTempCredit;
-        printf("평균 GPA: %.2f\n", GPA);
-      }
-      else
-      {
-        printf("입력 없음\n");
-      }
-      break;
-    }
-
-    case 3:
-      printf("\n[졸업 시뮬레이션]\n");
-
-      if(isInfoEntered == 0)
-      {
-        printf("먼저 1번 실행\n");
+        if (totalTempCredit > 0)
+        {
+          GPA = totalTempPoints / totalTempCredit;
+          printf("평균 GPA: %.2f\n", GPA);
+        }
+        else
+        {
+          printf("입력 없음\n");
+        }
         break;
       }
 
-      // 계산 로직 함수로 분리 (예정)
+      case 3:
+        printf("\n[졸업 시뮬레이션]\n");
 
-      // 총 이수 학점 계산
-      takenTotalCredit = myMajorCredit + myCommonCredit + myCoreCredit + myBasicCredit;
+        if(isInfoEntered == 0)
+        {
+          printf("먼저 1번 실행\n");
+          break;
+        }
 
-      // 남은 학점 계산
-      remainMajorCredit = MajorCredit - myMajorCredit;
-      remainCommonCredit = CommonCredit - myCommonCredit;
-      remainCoreCredit = CoreCredit - myCoreCredit;
-      remainBasicCredit = BasicCredit - myBasicCredit;
-      remainGeneralCredit = GeneralCredit - myGeneralCredit;
+        // 계산 로직 함수로 분리 (예정)
 
-      // 조건문 -> 함수로 축약 (예정)
+        // 총 이수 학점 계산
+        takenTotalCredit = myMajorCredit + myCommonCredit + myCoreCredit + myBasicCredit;
 
-      if(remainMajorCredit < 0)
-      {
-        remainMajorCredit = 0;
-      }
+        // 남은 학점 계산
+        remainMajorCredit = MajorCredit - myMajorCredit;
+        remainCommonCredit = CommonCredit - myCommonCredit;
+        remainCoreCredit = CoreCredit - myCoreCredit;
+        remainBasicCredit = BasicCredit - myBasicCredit;
+        remainGeneralCredit = GeneralCredit - myGeneralCredit;
+
+        // 조건문 -> 함수로 축약 (예정)
+
+        if(remainMajorCredit < 0)
+        {
+          remainMajorCredit = 0;
+        }
       
-      if(remainCommonCredit < 0)
-      {
-        remainCommonCredit = 0;
-      }
+        if(remainCommonCredit < 0)
+        {
+          remainCommonCredit = 0;
+        }
       
-      if(remainCoreCredit < 0)
-      {
-        remainCoreCredit = 0;
-      }
+        if(remainCoreCredit < 0)
+        {
+          remainCoreCredit = 0;
+        }
 
-      if(remainBasicCredit < 0)
-      {
-        remainBasicCredit = 0;
-      }
+        if(remainBasicCredit < 0)
+        {
+          remainBasicCredit = 0;
+        }
       
-      if(remainGeneralCredit < 0)
-      {
-        remainGeneralCredit = 0;
-      }
+        if(remainGeneralCredit < 0)
+        {
+          remainGeneralCredit = 0;
+        }
       
-      if(remainTotalCredit < 0)
-      {
-        remainTotalCredit = 0;
-      }
+        if(remainTotalCredit < 0)
+        {
+          remainTotalCredit = 0;
+        }
 
-      if(remainTotalCredit == 0 &&
-         remainMajorCredit == 0 &&
-         remainCommonCredit == 0 &&
-         remainCoreCredit == 0 &&
-         remainBasicCredit == 0 &&
-         remainGeneralCredit == 0)
-         {
-
+        if(remainTotalCredit == 0 &&
+           remainMajorCredit == 0 &&
+           remainCommonCredit == 0 &&
+           remainCoreCredit == 0 &&
+           remainBasicCredit == 0 &&
+           remainGeneralCredit == 0)
+        {
           if(GPA > 0.0f)
           {
             printf("졸업 가능\n");
@@ -255,9 +254,9 @@ int main() {
           {
             printf("GPA 부족으로 졸업 불가\n");
           }
-         }
-         else
-         {
+        }
+        else
+        {
           printf("학점 부족으로 졸업 불가\n");
 
           if(remainMajorCredit > 0)
@@ -267,67 +266,67 @@ int main() {
 
           if(remainCommonCredit > 0)
           {
-            printf("전공 학점 부족: %d\n", remainCommonCredit);
+            printf("공통 교양 학점 부족: %d\n", remainCommonCredit);
           }
 
           if(remainCoreCredit > 0)
           {
-            printf("전공 학점 부족: %d\n", remainCoreCredit);
+            printf("핵심 교양 학점 부족: %d\n", remainCoreCredit);
           }
 
           if(remainBasicCredit > 0)
           {
-            printf("전공 학점 부족: %d\n", remainBasicCredit);
+            printf("학문 기초 교양 학점 부족: %d\n", remainBasicCredit);
           }
 
           if(remainTotalCredit > 0)
           {
-            printf("전공 학점 부족: %d\n", remainTotalCredit);
+            printf("전 학점 부족: %d\n", remainTotalCredit);
           }
-
-          break;
+        }    
+        break;
         
-        case 4:
-          printf("\n[데이터 조회]\n");
+      case 4:
+        printf("\n[데이터 조회]\n");
 
-          if(isOnfoEntered)
-          {
-            printf("%c(%d)\n", studentInitial, studentID);
-          }
-          else
-          {
-            printf("데이터 없음\n");
-          }
+        if(isInfoEntered)
+        {
+          printf("%c(%d)\n", studentInitial, studentID);
+        }
+        else
+        {
+          printf("데이터 없음\n");
+        }
 
-          break;
+        break;
         
-        case 5:
-          printf("\n[최종 요약]\n");
+      case 5:
+        printf("\n[최종 요약]\n");
 
-          if(isInfoEntered == 0)
-          {
-            printf("정보 입력 필요\n");
-            break;
-          }
-
-          takenTotalCredit = myMajorCredit + myCommonCredit + myCoreCredit + myBasicCredit + myGeneralCredit;
-
-          printf("GPA: %.2f\n", GPA);
-          printf("총 학점: %d / %d\n", takenTotalCredit, TotalCredit);
-
-          // 출력 함수로 분리 (예정)
-
+        if(isInfoEntered == 0)
+        {
+          printf("정보 입력 필요\n");
           break;
+        }
+
+        takenTotalCredit = myMajorCredit + myCommonCredit + myCoreCredit + myBasicCredit + myGeneralCredit;
+
+        printf("GPA: %.2f\n", GPA);
+        printf("총 학점: %d / %d\n", takenTotalCredit, TotalCredit);
+      
+        // 출력 함수로 분리 (예정)
+
+        break;
         
-        case 6:
-          printf("프로그램 종료\n");
-          isRunning = 0;
-          break;
+      case 6:
+        printf("프로그램 종료\n");
+        isRunning = 0;
+        break;
         
-        default:
-          printf("잘못된 입력\n");
-          break;
-         }
+      default:
+        printf("잘못된 입력\n");
+        break;
+    }
   }
   return 0;
 }
