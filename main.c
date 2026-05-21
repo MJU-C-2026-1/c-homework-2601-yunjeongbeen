@@ -110,39 +110,132 @@ void printMenu()
   printf("=====================================================\n");
 }
 
+// 1) 정보 입력
+void inputInfo()
+{
+  printf("\n [학생 정보 입력]\n");
+
+  printf("당신의 이니셜과 학번을 입력하세요. (ex. Y 60251822) \n >> ");
+  scanf(" %c %d", &studentInitial, &studentID);
+
+  printf("현재 평균 학점(GPA)을 입력하세요. (ex. 3.5) \n >> ");
+  scanf("%f", &GPA);
+
+  printf("지금까지 이수한 영역별 학점을 입력하세요. \n");
+  printf("전공 학점: ");
+  scanf("%d", &myMajorCredit);
+  printf("공통 교양 학점: ");
+  scanf("%d", &myCommonCredit);
+  printf("핵심 교양 학점: ");
+  scanf("%d", &myCoreCredit);
+  printf("학문 기초 교양 학점: ");
+  scanf("%d", &myBasicCredit);
+  printf("일반 교양 학점: ");
+  scanf("%d", &myGeneralCredit);
+
+  isInfoEntered = 1;
+  printf("입력 완료\n");
+}
+
+// 2) 평균 학점 계산 (p/np 추가)
+void calcGPA()
+{
+  int numSubjects;
+  int tempCredit, totalTempCredit = 0;
+  float tempGrade = 0.1f, totalTempPoints = 0.0f;
+  char gradeLetter, gradeModifier;
+  int i;
+
+  printf("\n[평균 학점 계산]\n");
+  printf("과목 수 입력: ");
+  scanf("%d", &numSubjects);
+
+  // 배열(예정)
+
+  for(i = 1; i <= numSubjects; i++)
+  {
+    printf("%d번째 과목 (학점, 등급): ", i);
+          scanf("%d %c%c", &tempCredit, &gradeLetter, &gradeModifier);
+
+          // 성적 계산 로직 함수로 분리
+
+          switch(gradeLetter) 
+          {
+            case 'A':
+              if (gradeModifier == '+')
+              {
+                tempGrade = 4.5f;
+              }
+              else
+              {
+                tempGrade =4.0f;
+              }
+              break;
+
+            case 'B':
+              if (gradeModifier == '+')
+              {
+                tempGrade = 3.5f;
+              }
+              else
+              {
+                tempGrade =3.0f;
+              }
+              break;
+          
+            case 'C':
+              if (gradeModifier == '+')
+              {
+                tempGrade = 2.5f;
+              }
+              else
+              {
+                tempGrade =2.0f;
+              }
+              break;
+          
+            case 'D':
+              if (gradeModifier == '+')
+              {
+                tempGrade = 1.5f;
+              }
+              else
+              {
+                tempGrade =1.0f;
+              }
+              break;
+          
+            case 'F':
+              tempGrade = 0.0f;
+              break;
+          
+            default:
+              printf("잘못된 등급 -> 'F'처리 \n");
+              tempGrade = 0.0f;
+              break;
+          }
+        }
+          totalTempCredit += tempCredit;
+          totalTempPoints += tempCredit * tempGrade;
+
+        if (totalTempCredit > 0)
+        {
+          GPA = totalTempPoints / totalTempCredit;
+          printf("평균 GPA: %.2f\n", GPA);
+        }
+        else
+        {
+          printf("입력 없음\n");
+        }
+        break;
+      }
+}
+
 /*
   for (i = 0; isRunning == 1; i++) {
 
     switch(choice) 
     {
-      case 1:
-      printf("\n [학생 정보 입력]\n");
-
-      // 입력 기능 함수로 분리 (예정)
-
-      printf("당신의 이니셜과 학번을 입력하세요. (ex. Y 60251822) \n >> ");
-      scanf(" %c %d", &studentInitial, &studentID);
-
-      printf("현재 평균 학점(GPA)을 입력하세요. (ex. 3.5) \n >> ");
-      scanf("%f", &GPA);
-
-      printf("지금까지 이수한 영역별 학점을 입력하세요. \n");
-      printf("전공 학점: ");
-      scanf("%d", &myMajorCredit);
-      printf("공통 교양 학점: ");
-      scanf("%d", &myCommonCredit);
-      printf("핵심 교양 학점: ");
-      scanf("%d", &myCoreCredit);
-      printf("학문 기초 교양 학점: ");
-      scanf("%d", &myBasicCredit);
-      printf("일반 교양 학점: ");
-      scanf("%d", &myGeneralCredit);
-      
-      isInfoEntered = 1;
-      printf("입력 완료\n");
-      break;
-    
-    
       case 2:
       {
         int numSubjects;
