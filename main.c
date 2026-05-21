@@ -1,40 +1,48 @@
 /* 
   파일이름: main.c
   작 성 자: 윤정빈
-  하 는 일: V2.0
+  하 는 일: V3.0
 */
 
 #include <stdio.h>
 
-// 함수 분리 -> 가독성, 유지보수성 향상 (예정)
+// 전역 변수
+// 1. 사용자 정보
+char studentInitial = ' ';
+int studentID = 0;
+int isInfoEntered = 0; // 입력 확인용
+
+// 2. 성적 입력
+float GPA = 0.0f;
+
+// 3. 졸업 기준 (학교 규정 / 컴퓨터공학과 기준)
+int TotalCredit= 134;
+int CommonCredit = 17;
+int CoreCredit = 12;
+int BasicCredit = 15;
+int GeneralCredit = 10;
+int MajorCredit = 70;
+
+// 4. 현재 상태 (이수한 학점)
+int myCommonCredit = 0;
+int myCoreCredit = 0;
+int myBasicCredit = 0;
+int myGeneralCredit = 0;
+int myMajorCredit = 0;
+
+// 함수 선언
+void printMenu();
+void inputInfo();
+void calcGPA();
+void runSimulation();
+void printData();
+void printFinalSummary();
 
 int main() 
 {
-  // 1. 사용자 정보
-  char studentInitial = ' ';
-  int studentID = 0;
-  int isInfoEntered = 0; // 입력 확인용
-
-  // 2. 성적 입력
-  float GPA = 0.0f;
-
-  // 3. 졸업 기준 (학교 규정 / 컴퓨터공학과 기준)
-  int TotalCredit= 134;
-  int CommonCredit = 17;
-  int CoreCredit = 12;
-  int BasicCredit = 15;
-  int GeneralCredit = 10;
-  int MajorCredit = 70;
-
-  // 4. 현재 상태 (이수한 학점)
-  int myCommonCredit = 0;
-  int myCoreCredit = 0;
-  int myBasicCredit = 0;
-  int myGeneralCredit = 0;
-  int myMajorCredit = 0;
 
   // 배열 사용 -> 효율적 데이터 관리 (예정)
-
+/*
   // 5. 계산 결과
   int takenTotalCredit = 0; // 총 이수 학점
   int remainCommonCredit = 0;
@@ -43,26 +51,67 @@ int main()
   int remainGeneralCredit = 0;
   int remainMajorCredit = 0; // 남은 교양, 전공 학점
   int remainTotalCredit = 0; // 남은 총 이수 학점
+*/
 
   int choice = 0;
   int isRunning = 1;
   int i;
 
-  // for -> while (예정)
-
-  for (i = 0; isRunning == 1; i++) {
-    printf("=====================================================\n");
-    printf("\t[대학 졸업 학점 관리 시스템 V2.0]\n");
-    printf("=====================================================\n");
-    printf("1. 학생 기본 정보 및 이수 내역 입력\n");
-    printf("2. 과목별 성적 입력 및 평균 학점 계산기\n");
-    printf("3. 졸업 학점 시뮬레이션\n");
-    printf("4. 학생 데이터 조회\n");
-    printf("5. 최종 요약 출력\n");
-    printf("6. 프로그램 종료\n");
-    printf("=====================================================\n");
+  while(isRunning == 1)
+  {
+    printMenu();
     printf("메뉴 선택: ");
     scanf("%d", &choice);
+
+    switch(choice)
+    {
+      case 1:
+        inputInfo();
+        break;
+      case 2:
+        calcGPA();
+        break;
+      case 3:
+        runSimulation();
+        break;
+      case 4:
+        printData();
+        break;
+      case 5:
+        printFinalSummary();
+        break;
+      case 6:
+        printf("프로그램을 종료합니다. \n");
+        isRunning = 0;
+        break;
+      default:
+        printf("잘못된 입력입니다. 다시 입력하세요. \n");
+        break;
+    }
+  }
+
+  return 0;
+}
+
+// 함수 구현
+
+// 메뉴 출력
+void printMenu()
+{
+  printf("=====================================================\n");
+  printf("\t[대학 졸업 학점 관리 시스템 V2.0]\n");
+  printf("=====================================================\n");
+  printf("1. 학생 기본 정보 및 이수 내역 입력\n");
+  printf("2. 과목별 성적 입력 및 평균 학점 계산기\n");
+  printf("3. 졸업 학점 시뮬레이션\n");
+  printf("4. 학생 데이터 조회\n");
+  printf("5. 최종 요약 출력\n");
+  printf("6. 프로그램 종료\n");
+  printf("=====================================================\n");
+}
+
+/*
+  for (i = 0; isRunning == 1; i++) {
 
     switch(choice) 
     {
@@ -329,4 +378,4 @@ int main()
     }
   }
   return 0;
-}
+*/
