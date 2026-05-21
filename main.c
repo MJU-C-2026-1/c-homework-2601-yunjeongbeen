@@ -37,6 +37,7 @@ void calcGPA();
 void runSimulation();
 void printData();
 void printFinalSummary();
+float charToGrade(char letter, char modifier);
 
 int main() 
 {
@@ -44,9 +45,8 @@ int main()
   // 배열 사용 -> 효율적 데이터 관리 (예정)
 
   int choice = 0;
-  int isRunning = 1;
 
-  while(isRunning == 1)
+  while(1)
   {
     printMenu();
     printf("메뉴 선택: ");
@@ -71,11 +71,15 @@ int main()
         break;
       case 6:
         printf("프로그램을 종료합니다. \n");
-        isRunning = 0;
         break;
       default:
         printf("잘못된 입력입니다. 다시 입력하세요. \n");
         break;
+    }
+
+    if (choice == 6)
+    {
+      break;
     }
   }
 
@@ -147,73 +151,20 @@ void calcGPA()
     printf("%d번째 과목 (학점, 등급): ", i);
     scanf("%d %c%c", &tempCredit, &gradeLetter, &gradeModifier);
 
-    // 성적 계산 로직 함수로 분리
-
-    switch(gradeLetter) 
+    if(gradeLetter == 'P' || gradeLetter == 'N')
     {
-      case 'A':
-        if (gradeModifier == '+')
-        {
-          tempGrade = 4.5f;
-        }
-        else
-        {
-          tempGrade =4.0f;
-        }
-        break;
-
-      case 'B':
-        if (gradeModifier == '+')
-        {
-          tempGrade = 3.5f;
-        }
-        else
-        {
-          tempGrade =3.0f;
-        }
-        break;
-          
-      case 'C':
-        if (gradeModifier == '+')
-        {
-          tempGrade = 2.5f;
-        }
-        else
-        {
-          tempGrade =2.0f;
-        }
-        break;
-    
-      case 'D':
-        if (gradeModifier == '+')
-        {
-          tempGrade = 1.5f;
-        }
-        else
-        {
-          tempGrade =1.0f;
-        }
-        break;
-          
-      case 'F':
-        tempGrade = 0.0f;
-        break;
-      
-      case 'P':
-      case 'N':
-        tempCredit = 0;
-        tempGrade = 0.0f;
-        break;
-      
-      default:
-        printf("잘못된 등급 -> 'F'처리 \n");
-        tempGrade = 0.0f;
-        break;
+      tempCredit = 0;
+      tempGrade = 0.0f;
+    }
+    else
+    {
+      tempGrade = charToGrade(gradeLetter, gradeModifier);
     }
 
     totalTempCredit += tempCredit;
     totalTempPoints += tempCredit * tempGrade;
   }
+
   if (totalTempCredit > 0)
   {
     GPA = totalTempPoints / totalTempCredit;
@@ -246,7 +197,7 @@ void runSimulation()
   }
 
   // 총 이수 학점 계산
-  takenTotalCredit = myMajorCredit + myCommonCredit + myCoreCredit + myBasicCredit;
+  takenTotalCredit = myMajorCredit + myCommonCredit + myCoreCredit + myBasicCredit + myGeneralCredit;
 
   // 남은 학점 계산
   remainMajorCredit = MajorCredit - myMajorCredit;
@@ -254,8 +205,7 @@ void runSimulation()
   remainCoreCredit = CoreCredit - myCoreCredit;
   remainBasicCredit = BasicCredit - myBasicCredit;
   remainGeneralCredit = GeneralCredit - myGeneralCredit;
-
-  // 조건문 -> 함수로 축약 (예정)
+  remainTotalCredit = TotalCredit - takenTotalCredit;
 
   if(remainMajorCredit < 0) remainMajorCredit = 0;
   if(remainCommonCredit < 0) remainCommonCredit = 0;
@@ -263,6 +213,8 @@ void runSimulation()
   if(remainBasicCredit < 0) remainBasicCredit = 0;
   if(remainGeneralCredit < 0) remainGeneralCredit = 0;
   if(remainTotalCredit < 0) remainTotalCredit = 0;
+
+  printf("현재까지 총 이수 학점: %d / %d\n", takenTotalCredit, TotalCredit);
 
   if(remainTotalCredit == 0 &&
      remainMajorCredit == 0 &&
@@ -306,7 +258,7 @@ void runSimulation()
 
       if(remainTotalCredit > 0)
       {
-        printf("전 학점 부족: %d\n", remainTotalCredit);
+        printf("전체 학점 부족: %d\n", remainTotalCredit);
       }
     }           
 }
@@ -342,4 +294,67 @@ void printFinalSummary()
 
   printf("GPA: %.2f\n", GPA);
   printf("총 학점: %d / %d\n", takenTotalCredit, TotalCredit);
+}
+
+// 성적 변환
+float charToGrade(char letter, char modifier)
+{
+  float tempGrade = 0.0f;
+  
+  switch(letter)
+  {
+    case 'A':
+      if (modifier == '+')
+      {
+        tempGrade = 4.5f;
+      }
+      else
+      {
+        tempGrade = 4.0f;
+      }
+      break;
+
+    case 'B':
+      if (modifier == '+')
+      {
+        tempGrade = 3.5f;
+      }
+      else
+      {
+        tempGrade = 3.0f;
+      }
+      break;
+
+    case 'C':
+      if (modifier == '+')
+      {
+        tempGrade = 2.5f;
+      }
+      else
+      {
+        tempGrade = 2.0f;
+      }
+      break;
+
+    case 'D':
+      if (modifier == '+')
+      {
+        tempGrade = 1.5f;
+      }
+      else
+      {
+        tempGrade = 1.0f;
+      }
+      break;
+
+    case 'F':
+      tempGrade = 0.0f;
+      break;
+
+    default:
+      printf("잘못된 입력 -> 'F' 처리\n");
+      tempGrade = 0.0f;
+      break;
+  }
+  return tempGrade;
 }
